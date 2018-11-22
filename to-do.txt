@@ -3,3 +3,4 @@ working on:
 - make sports tab dropdown
 - add logos to sidenav
 - create homepage content
+- test git changes
