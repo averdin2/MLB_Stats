@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+*:before, *:after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial;
   margin: 0;
@@ -11,7 +15,7 @@ body {
 
 .topnav {
   overflow: hidden;
-  background-color: blue;
+  background-color: #002D72;
   position: sticky;
   top: 0;
 }
@@ -21,33 +25,54 @@ body {
   display: block;
   color: white;
   test-align: center;
-  padding: 14px 16px;
+  padding: 16px 16px;
   text-decoration: none;
 }
 
-.topnav a:hover {
-  background-color: red;
+.topnav a:hover:not(.active) {
+  background-color: #D50032;
+}
+
+.mlblogo a:hover:not(.active){
+  background-color: #002D72;
 }
 
 .sidenav {
-  width: 300px;
-  height: 100%;
-  top: 46px;
-  padding-bottom: 0;
+  height: 95%;
+  width: 250px;
+  top: 50px;
+  bottom: 0;
   background-color: white;
-  position: fixed;
-  overflow: auto;
+  position: fixed!important;
+  z-index: 1;
+  overflow: scroll;
 }
 
 .sidenav a {
   display: block;
-  background-color: green;
-  color: white;
+  background-color: white;
+  color: black;
   test-align: center;
   padding: 15px;
   text-decoration: none;
 }
 
-.sidenav a:hover {
-  background-color: red;
+.sidenav a:hover:not(.active) {
+  background-color: #D50032;
+  color: white;
+}
+
+.active {
+  background-color: #333;
+}
+
+.sidenav h2 {
+  margin: 0;
+  padding: 20px;
+  background-color: #002D72;
+  color: white;
+}
+
+.main {
+  height: 100%;
 }

@@ -1,4 +1,5 @@
 working on:
-- need to change colors (lighter or more transparent colors will be best)
-- get rid of header and add it to the topnav
-  - topnav buttons will be located in the middle and mlb stats located on the left of navbar
+- fix sidenav (still a bit buggy because of height changes).
+- make sports tab dropdown
+- add logos to sidenav
+- create homepage content

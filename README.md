@@ -27,3 +27,7 @@ The unique content of each webpage will be detailed in the Projects Pages Descri
 - The Footer will contain basic info about the page like Creator name and website purpose.
 - The background of the Footer will be a grey color and all text will be white.
 ### Project Pages Description
+
+#### Citations
+- mlb logo image from wikipedia
+- all mlb team logos from https://teamcolorcodes.com
