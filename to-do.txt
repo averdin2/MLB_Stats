@@ -1,5 +1,4 @@
 working on:
-- fix sidenav (still a bit buggy because of height changes).
 - make sports tab dropdown (need to change nav contents to list)
-- add logos to sidenav
+- not going to add any more logos (no need!)
 - create homepage content
