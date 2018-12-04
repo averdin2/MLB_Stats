@@ -1,4 +1,48 @@
 working on:
-- make sports tab dropdown (need to change nav contents to list)
-- not going to add any more logos (no need!)
-- create homepage content
+  JavaScript side:
+  - still need to complete calls for player Stats
+  - hook up stats to html page
+  Webpage:
+  - create player stats page
+// http://lookup-service-prod.mlb.com/json/named.team_all_season.bam?sport_code='mlb'
+http://lookup-service-prod.mlb.com/json/named.team_all_season.bam?sport_code=%27mlb%27&all_star_sw=%27N%27&sort_order=name_asc&season=%272018%27&team_all_season.col_in=name_display_full,team_id,mlb_org_abbrev,division_full
+when searching for teams {
+  name_display_full
+  team_id
+  mlb_org_abbrev
+  division_full
+
+}
+
+// http://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id=
+http://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id=%27119%27&roster_40.col_in=position_txt,name_display_first_last,jersey_number,bats,throws,player_id
+when searching for players (need to look at 40 man roster) {
+  // get pitchers first then position players
+  position_txt
+  name_display_first_last
+  jersey_number
+  bats
+  throws
+  player_id
+}
+
+// http://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='R'&season=
+2018 player stats (hitting) {
+  g(games)
+  avg
+  ab(at bats)
+  rbi
+  hr(homeruns)
+  bb (walks)
+  so (strike outs)
+}
+
+// http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season=
+2018 player stats (pitching) {
+  g (games)
+  era
+  gs (games started)
+  w (win)
+  l (loss)
+  ip (innings pitched)
+}
