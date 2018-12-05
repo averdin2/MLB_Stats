@@ -1,6 +1,7 @@
 working on:
   JavaScript side:
-  - still need to complete calls for player Stats
+  - need to put variables into pitcher variables (as well as hitters)
+  - separate other getJSON functions into their own functions
   - hook up stats to html page
   Webpage:
   - create player stats page

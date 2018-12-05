@@ -4,6 +4,9 @@ var teamId = "";
 var teamAbbrev = "";
 var teamDivision = "";
 
+// season year
+var season = "2018"
+
 // player variables
 class Player {
   constructor(name, playerId, position, jerseyNum, bats, throws) {
@@ -19,12 +22,12 @@ class Player {
 
 class Pitcher {
   constructor(games, era, gamesStarted, wins, losses, inningsPitched) {
-    this.games = games;
-    this.era = era;
-    this.gamesStarted = gamesStarted;
-    this. wins = wins;
-    this.losses = losses;
-    this.inningsPitched = inningsPitched;
+    this.games = games || 0;
+    this.era = era || 0;
+    this.gamesStarted = gamesStarted || 0;
+    this. wins = wins || 0;
+    this.losses = losses || 0;
+    this.inningsPitched = inningsPitched || 0;
   }
 }
 
@@ -65,9 +68,48 @@ function(teams){
         hitters.push(x);
       }
     }
+
     // get individual player stats for pitchers
-    console.log(teamMembers);
-    console.log(pitchers);
-    console.log(hitters);
+    for (var p in pitchers) {
+      //console.log(pitchers[p].name);
+      getPitcherStats(pitchers[p], function(value) {console.log(value)});
+    }
+
+    function getPitcherStats(pitcher, callback) {
+      var stats = "";
+      $.getJSON("http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season=" + season + "&teamId='119'&player_id=" + pitcher.playerId + "&sport_pitching_tm.col_in=g,era,gs,w,l,ip",
+      function(pStats){
+        // need to put variables into pitcher variables
+        console.log(pStats);
+        if (pStats.sport_pitching_tm.queryResults.row == undefined) {
+          stats = 0;
+        }
+        else if (pStats.sport_pitching_tm.queryResults.row.length > 1) {
+          stats = pStats.sport_pitching_tm.queryResults.row[pStats.sport_pitching_tm.queryResults.row.length - 1].g;
+        }
+        else {
+          stats = pStats.sport_pitching_tm.queryResults.row.g;
+        }
+        callback(stats);
+      })
+    }
+
+    // for (var p in pitchers) {
+    //   console.log(pitchers[p].name);
+    //   console.log(pitchers[p].playerId);
+    // }
+    //   $.getJSON("http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season=" + season + "&player_id='571670'&sport_pitching_tm.col_in=g,era,gs,w,l,ip",
+    //   function(pStats){
+    //     console.log(pStats.sport_pitching_tm.queryResults.row.length);
+    //     if (pStats.sport_pitching_tm.queryResults.row.length > 1) {
+    //       var stat = pStats.sport_pitching_tm.queryResults.row[pStats.sport_pitching_tm.queryResults.row.length - 1];
+    //       console.log(stat);
+    //     }
+    //   })
+
+
+    //console.log(teamMembers);
+    //console.log(pitchers);
+    //console.log(hitters);
   })
 })
