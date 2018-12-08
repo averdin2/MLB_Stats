@@ -21,13 +21,25 @@ class Player {
 }
 
 class Pitcher {
-  constructor(games, era, gamesStarted, wins, losses, inningsPitched) {
-    this.games = games || 0;
+  constructor(era, games, gamesStarted, inningsPitched, wins, losses) {
     this.era = era || 0;
+    this.games = games || 0;
     this.gamesStarted = gamesStarted || 0;
+    this.inningsPitched = inningsPitched || 0;
     this. wins = wins || 0;
     this.losses = losses || 0;
-    this.inningsPitched = inningsPitched || 0;
+  }
+}
+
+class Hitter {
+  constructor(games, average, atBats, rbi, homeruns, walks, strikeOuts) {
+    this.games = games || 0;
+    this.average = average || 0;
+    this.atBats = atBats || 0;
+    this.rbi = rbi || 0;
+    this. homeruns = homeruns || 0;
+    this.walks = walks || 0;
+    this.strikeOuts = strikeOuts || 0;
   }
 }
 
@@ -71,45 +83,83 @@ function(teams){
 
     // get individual player stats for pitchers
     for (var p in pitchers) {
-      //console.log(pitchers[p].name);
-      getPitcherStats(pitchers[p], function(value) {console.log(value)});
+      console.log(pitchers[p].name);
+      lookupPitcherStats(pitchers[p]);
     }
 
-    function getPitcherStats(pitcher, callback) {
-      var stats = "";
+    for (var h in hitters) {
+      console.log(hitters[h].name);
+      lookupHitterStats(hitters[h]);
+    }
+
+    function lookupPitcherStats(pitcher) {
+      var stats = new Pitcher();
       $.getJSON("http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season=" + season + "&teamId='119'&player_id=" + pitcher.playerId + "&sport_pitching_tm.col_in=g,era,gs,w,l,ip",
       function(pStats){
-        // need to put variables into pitcher variables
-        console.log(pStats);
+        //console.log(pStats);
         if (pStats.sport_pitching_tm.queryResults.row == undefined) {
-          stats = 0;
+          stats;
         }
         else if (pStats.sport_pitching_tm.queryResults.row.length > 1) {
-          stats = pStats.sport_pitching_tm.queryResults.row[pStats.sport_pitching_tm.queryResults.row.length - 1].g;
+          stats.era = pStats.sport_pitching_tm.queryResults.row[pStats.sport_pitching_tm.queryResults.row.length - 1].era;
+          stats.games = pStats.sport_pitching_tm.queryResults.row[pStats.sport_pitching_tm.queryResults.row.length - 1].g;
+          stats.gamesStarted = pStats.sport_pitching_tm.queryResults.row[pStats.sport_pitching_tm.queryResults.row.length - 1].gs;
+          stats.inningsPitched = pStats.sport_pitching_tm.queryResults.row[pStats.sport_pitching_tm.queryResults.row.length - 1].ip;
+          stats.wins = pStats.sport_pitching_tm.queryResults.row[pStats.sport_pitching_tm.queryResults.row.length - 1].w;
+          stats.losses = pStats.sport_pitching_tm.queryResults.row[pStats.sport_pitching_tm.queryResults.row.length - 1].l;
         }
         else {
-          stats = pStats.sport_pitching_tm.queryResults.row.g;
+          stats.era = pStats.sport_pitching_tm.queryResults.row.era;
+          stats.games = pStats.sport_pitching_tm.queryResults.row.g;
+          stats.gamesStarted = pStats.sport_pitching_tm.queryResults.row.gs;
+          stats.inningsPitched = pStats.sport_pitching_tm.queryResults.row.ip;
+          stats.wins = pStats.sport_pitching_tm.queryResults.row.w;
+          stats.losses = pStats.sport_pitching_tm.queryResults.row.l;
         }
-        callback(stats);
+        //callback(stats);
+        getPitcherStats(stats, pitcher);
       })
     }
 
-    // for (var p in pitchers) {
-    //   console.log(pitchers[p].name);
-    //   console.log(pitchers[p].playerId);
-    // }
-    //   $.getJSON("http://lookup-service-prod.mlb.com/json/named.sport_pitching_tm.bam?league_list_id='mlb'&game_type='R'&season=" + season + "&player_id='571670'&sport_pitching_tm.col_in=g,era,gs,w,l,ip",
-    //   function(pStats){
-    //     console.log(pStats.sport_pitching_tm.queryResults.row.length);
-    //     if (pStats.sport_pitching_tm.queryResults.row.length > 1) {
-    //       var stat = pStats.sport_pitching_tm.queryResults.row[pStats.sport_pitching_tm.queryResults.row.length - 1];
-    //       console.log(stat);
-    //     }
-    //   })
+    function lookupHitterStats(hitter) {
+      var stats = new Hitter();
+      $.getJSON("http://lookup-service-prod.mlb.com/json/named.sport_hitting_tm.bam?league_list_id='mlb'&game_type='R'&season=" + season + "&teamId='119'&player_id=" + hitter.playerId + "&sport_hitting_tm.col_in=g,avg,ab,rbi,hr,bb,so",
+      function(hStats){
+        //console.log(pStats);
+        if (hStats.sport_hitting_tm.queryResults.row == undefined) {
+          stats;
+        }
+        else if (hStats.sport_hitting_tm.queryResults.row.length > 1) {
+          stats.games = hStats.sport_hitting_tm.queryResults.row[hStats.sport_hitting_tm.queryResults.row.length - 1].g;
+          stats.average = hStats.sport_hitting_tm.queryResults.row[hStats.sport_hitting_tm.queryResults.row.length - 1].avg;
+          stats.atBats = hStats.sport_hitting_tm.queryResults.row[hStats.sport_hitting_tm.queryResults.row.length - 1].ab;
+          stats.rbi = hStats.sport_hitting_tm.queryResults.row[hStats.sport_hitting_tm.queryResults.row.length - 1].rbi;
+          stats.homeruns = hStats.sport_hitting_tm.queryResults.row[hStats.sport_hitting_tm.queryResults.row.length - 1].hr;
+          stats.walks = hStats.sport_hitting_tm.queryResults.row[hStats.sport_hitting_tm.queryResults.row.length - 1].bb;
+          stats.strikeOuts = hStats.sport_hitting_tm.queryResults.row[hStats.sport_hitting_tm.queryResults.row.length - 1].so;
+        }
+        else {
+          stats.games = hStats.sport_hitting_tm.queryResults.row.g;
+          stats.average = hStats.sport_hitting_tm.queryResults.row.avg;
+          stats.atBats = hStats.sport_hitting_tm.queryResults.row.ab;
+          stats.rbi = hStats.sport_hitting_tm.queryResults.row.rbi;
+          stats.homeruns = hStats.sport_hitting_tm.queryResults.row.hr;
+          stats.walks = hStats.sport_hitting_tm.queryResults.row.bb;
+          stats.strikeOuts = hStats.sport_hitting_tm.queryResults.row.so;
+        }
+        getHitterStats(stats, hitter);
+      })
+    }
 
+    function getPitcherStats(pitcherStats, pitcher) {
+      pitcher.stats = pitcherStats;
+      console.log(pitcher);
+    }
 
-    //console.log(teamMembers);
-    //console.log(pitchers);
-    //console.log(hitters);
+    function getHitterStats(hitterStats, hitter) {
+      hitter.stats = hitterStats;
+      console.log(hitter.stats);
+    }
+
   })
 })
