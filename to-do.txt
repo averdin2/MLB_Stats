@@ -34,7 +34,7 @@ when searching for players (need to look at 40 man roster) {
   ab(at bats)
   rbi
   hr(homeruns)
-  bb (walks)
+  // bb (walks)
   so (strike outs)
 }
 
