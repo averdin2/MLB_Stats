@@ -5,7 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="styles.css">
-  <script src="test.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    crossorgin="anonymous"></script>
+  <script src="stats.js"></script>
+
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
@@ -20,9 +23,9 @@
           </a>
         </div>
       </li>
-      <li><a class="active" href="#home">Home</a></li>
-      <li><a href="homepage.html">2018 Season</a></li>
-      <li><a href="#about">About</a>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#2018">2018 Season</a></li>
+      <li><a href="https://github.com/averdin2/MLB_Stats/blob/master/README.md">About</a>
       <li>
         <div class="dropdown">
           <a href="javascript:void(0)" class="dropbtn">Sports</a>
@@ -39,39 +42,39 @@
   <div class="sidenav" id="teams-list">
     <ul>
       <li><h2>Teams List</h2></li>
-      <li><a href="#arizona">Arizona Diamondbacks</a></li>
-      <li><a href="#atlanta">Atlanta Braves</a></li>
-      <li><a href="#baltimore">Baltimore Orioles</a></li>
-      <li><a href="#boston">Boston Red Sox</a></li>
-      <li><a href="#cws">Chicago White Sox</a></li>
-      <li><a href="#cc">Chicago Cubs</a></li>
-      <li><a href="#cincinnati">Cincinnati Reds</a></li>
-      <li><a href="#cleveland">Cleveland Indians</a></li>
-      <li><a href="#colorado">Calorado Rockies</a></li>
-      <li><a href="#detroit">Detroit Tigers</a></li>
-      <li><a href="#houston">Houston Astros</a></li>
-      <li><a href="#kansas-city">Kansas City Royals</a></li>
-      <li><a href="#laa">Los Angeles Angels</a></li>
+      <li><input type="button" class="button" onclick="getTeamStats(109);" value= "Arizona Diamondbacks"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(144);" value="Atlanta Braves"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(110)" value="Baltimore Orioles"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(111)" value="Boston Red Sox"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(112)" value="Chicago Cubs"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(145)" value="Chicago White Sox"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(113)" value="Cincinnati Reds"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(114)" value="Cleveland Indians"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(115)" value="Colorado Rockies"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(116)" value="Detroit Tigers"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(117)" value="Houston Astros"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(118)" value="Kansas City Royals"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(108)" value="Los Angeles Angels"></li>
       <li>
-        <img src="MLB Logos/dodgers_logo.png" alt="Dodgers Logo" style="float: left; width: 20px; margin: 10px 5px 0px 5px;">
-        <a href="homepage.html">Los Angeles Dodgers</a>
+        <!--<img src="MLB Logos/dodgers_logo.png" alt="Dodgers Logo" style="float: left; width: 20px; margin: 10px 5px 0px 5px;">-->
+        <input type="button" class="button" onclick="getTeamStats(119)" value="Los Angeles Dodgers">
       </li>
-      <li><a href="#miami">Miami Marlins</a></li>
-      <li><a href="#milwukee">Milwaukee Brewers</a></li>
-      <li><a href="#minnesota">Minnesota Twins</a></li>
-      <li><a href="#nyy">New York Yankees</a></li>
-      <li><a href="#nym">New York Mets</a></li>
-      <li><a href="#oakland">Oakland Athletics</a></li>
-      <li><a href="#philadelphia">Philadelphia Phillies</a></li>
-      <li><a href="#pittsburgh">Pittsburgh Pirates</a></li>
-      <li><a href="#san-diego">San Diego Padres</a></li>
-      <li><a href="#san-francisco">San Francisco Giants</a></li>
-      <li><a href="#seattle">Seattle Mariners</a></li>
-      <li><a href="#st-louis">St. Louis Cardinals</a></li>
-      <li><a href="#tampa-bay">Tampa Bay Rays</a></li>
-      <li><a href="#texas">Texas Rangers</a></li>
-      <li><a href="#toronto">Toronto Blue Jays</a></li>
-      <li><a href="#washington">Washington Nationals</a></li>
+      <li><input type="button" class="button" onclick="getTeamStats(146)" value="Miami Marlins"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(158)" value="Milwaukee Brewers"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(142)" value="Minnesota Twins"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(121)" value="New York Mets"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(147)" value="New York Yankees"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(133)" value="Oakland Athletics"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(143)" value="Philadelphia Phillies"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(134)" value="Pittsburgh Pirates"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(135)" value="San Diego Padres"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(137)" value="San Francisco Giants"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(136)" value="Seattle Mariners"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(138)" value="St. Louis Cardinals"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(139)" value="Tampa Bay Rays"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(140)" value="Texas Rangers"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(141)" value="Toronto Blue Jays"></li>
+      <li><input type="button" class="button" onclick="getTeamStats(120)" value="Washington Nationals"></li>
     </ul>
   </div>
 
@@ -87,15 +90,6 @@
         <th>W</th>
         <th>L</th>
       </tr>
-      <tr>
-        <td>Kenta Maeda</td>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
     </table>
 
     <table id="hitters" style="margin-top: 20px;">
@@ -108,15 +102,6 @@
         <th>RBI</th>
         <th>HR</th>
         <th>SO</th>
-      </tr>
-      <tr>
-        <td>Justin Turner</td>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
-        <td>0</td>
       </tr>
     </table>
   </div>

@@ -87,16 +87,19 @@ body {
   padding: 0;
 }
 
-.sidenav li a {
+.sidenav li .button {
   display: block;
   background-color: white;
   color: black;
-  test-align: center;
+  text-align: left;
   padding: 15px;
   text-decoration: none;
+  border: none;
+  width: 100%;
+  font-size: 20px;
 }
 
-.sidenav li a:hover:not(.active) {
+.sidenav li .button:hover:not(.active) {
   background-color: #D50032;
   color: white;
 }

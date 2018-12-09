@@ -1,8 +1,6 @@
 // team variables
-var teamName = "";
-var teamId = "";
-var teamAbbrev = "";
-var teamDivision = "";
+var teamId = "119";
+
 
 // season year
 var season = "2018"
@@ -26,7 +24,7 @@ class Pitcher {
     this.era = era || 0;
     this.gamesStarted = gamesStarted || 0;
     this.inningsPitched = inningsPitched || 0;
-    this. wins = wins || 0;
+    this.wins = wins || 0;
     this.losses = losses || 0;
   }
 }
@@ -37,28 +35,26 @@ class Hitter {
     this.average = average || 0;
     this.atBats = atBats || 0;
     this.rbi = rbi || 0;
-    this. homeruns = homeruns || 0;
+    this.homeruns = homeruns || 0;
     this.walks = walks || 0;
     this.strikeOuts = strikeOuts || 0;
   }
 }
 
-var teamMembers = [40];
+var teamMembers = [];
 var pitchers = [];
 var hitters = [];
 
-// find the team (for now it will just be the dodgers)
-$.getJSON("http://lookup-service-prod.mlb.com/json/named.team_all_season.bam?sport_code=%27mlb%27&all_star_sw=%27N%27&sort_order=name_asc&season=%272018%27&team_all_season.col_in=name_display_full,team_id,mlb_org_abbrev,division_full",
-function(teams){
-  //console.log(data);
-  //console.log(data.team_all_season.queryResults.row[13].team_id);
-  teamName = teams.team_all_season.queryResults.row[13].name_display_full;
-  teamId = teams.team_all_season.queryResults.row[13].team_id;
-  teamAbbrev = teams.team_all_season.queryResults.row[13].mlb_org_abbrev;
-  teamDivision = teams.team_all_season.queryResults.row[13].division_full;
-  //console.log(teamId);
+function getTeamStats(teamId) {
+  if (teamMembers[0] != undefined) {
+    teamMembers = [];
+    pitchers = [];
+    hitters = [];
+    deleteTable(document.getElementById('pitchers'));
+    deleteTable(document.getElementById('hitters'));
+  }
 
-  // get the 40 man roster of the team
+
   $.getJSON("http://lookup-service-prod.mlb.com/json/named.roster_40.bam?team_id=" + teamId + "&roster_40.col_in=position_txt,name_display_first_last,jersey_number,bats,throws,player_id",
   function(players){
     //console.log(players.roster_40.queryResults.row);
@@ -81,14 +77,14 @@ function(teams){
       }
     }
 
-    // get individual player stats for pitchers
+    // actually sets the players for the webpage
     for (var p in pitchers) {
-      console.log(pitchers[p].name);
+      //console.log(pitchers[p].name);
       lookupPitcherStats(pitchers[p]);
     }
 
     for (var h in hitters) {
-      console.log(hitters[h].name);
+      //console.log(hitters[h].name);
       lookupHitterStats(hitters[h]);
     }
 
@@ -117,7 +113,7 @@ function(teams){
           stats.losses = pStats.sport_pitching_tm.queryResults.row.l;
         }
         //callback(stats);
-        getPitcherStats(stats, pitcher);
+        setPitcherStats(stats, pitcher);
       })
     }
 
@@ -147,19 +143,69 @@ function(teams){
           stats.walks = hStats.sport_hitting_tm.queryResults.row.bb;
           stats.strikeOuts = hStats.sport_hitting_tm.queryResults.row.so;
         }
-        getHitterStats(stats, hitter);
+        setHitterStats(stats, hitter);
       })
     }
 
-    function getPitcherStats(pitcherStats, pitcher) {
+    function setPitcherStats(pitcherStats, pitcher) {
       pitcher.stats = pitcherStats;
-      console.log(pitcher);
+      addPitcher(pitcher.name, pitcher.stats.games, pitcher.stats.era, pitcher.stats.gamesStarted, pitcher.stats.inningsPitched, pitcher.stats.wins, pitcher.stats.losses);
+      //console.log(pitcher.name);
     }
 
-    function getHitterStats(hitterStats, hitter) {
+    function setHitterStats(hitterStats, hitter) {
       hitter.stats = hitterStats;
-      console.log(hitter.stats);
+      addHitter(hitter.name, hitter.stats.games, hitter.stats.average, hitter.stats.atBats, hitter.stats.rbi, hitter.stats.homeruns, hitter.stats.strikeOuts);
+      //console.log(hitter.stats);
     }
+
+    // adds pitcher to html pitchers table
+    function addPitcher(pName, pG, pERA, pGS, pIP, pW, pL) {
+      var pTable = document.getElementById("pitchers");
+      var row = pTable.insertRow(pTable.rows.length);
+      var name = row.insertCell(0);
+      var g = row.insertCell(1);
+      var era = row.insertCell(2);
+      var gs = row.insertCell(3);
+      var ip = row.insertCell(4);
+      var w = row.insertCell(5);
+      var l = row.insertCell(6);
+      name.innerHTML = pName;
+      g.innerHTML = pG;
+      era.innerHTML = pERA;
+      gs.innerHTML = pGS;
+      ip.innerHTML = pIP;
+      w.innerHTML = pW;
+      l.innerHTML = pL;
+    }
+
+    // adds hitter to html hitters table
+    function addHitter(hName, hG, hAVG, hAB, hRBI, hHR, hSO) {
+      var hTable = document.getElementById("hitters");
+      var row = hTable.insertRow(hTable.rows.length);
+      var name = row.insertCell(0);
+      var g = row.insertCell(1);
+      var avg = row.insertCell(2);
+      var ab = row.insertCell(3);
+      var rbi = row.insertCell(4);
+      var hr = row.insertCell(5);
+      var so = row.insertCell(6);
+      name.innerHTML = hName;
+      g.innerHTML = hG;
+      avg.innerHTML = hAVG;
+      ab.innerHTML = hAB;
+      rbi.innerHTML = hRBI;
+      hr.innerHTML = hHR;
+      so.innerHTML = hSO;
+    }
+
+
 
   })
-})
+
+  function deleteTable(table) {
+    while(table.rows.length != 1) {
+      table.deleteRow(1);
+    }
+  }
+}
