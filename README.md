@@ -2,6 +2,7 @@
 
 ## Project Introduction
 Project Creator: Alex Verdin
+
 Github: https://github.com/averdin2/MLB_Stats
 
 This project is a self made project for educational purposes only. The project will be using data from MLB Data API located at https://appac.github.io/mlb-data-api-docs/.
