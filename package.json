@@ -1,0 +1,20 @@
+{
+  "name": "MLB_Stats",
+  "version": "1.0.0",
+  "description": "Project Creator: Alex Verdin",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/averdin2/MLB_Stats.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://averdin2.github.io/MLB_Stats",
+  "dependencies": {
+    "gh-pages": "^2.2.0"
+  }
+}
