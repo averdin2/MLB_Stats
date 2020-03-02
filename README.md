@@ -9,9 +9,11 @@ This project is a self made project for educational purposes only. The project w
 The goal of this project is to create a working website that allows users to go through Major League Baseball team's stats in an organized manner.
 This project will be developed using HTML, CSS, Bootstrap, and JavaScript. API information is in JSON format.
 
+Currently, the stats displayed are for the 2019 season. Once the 2020 season starts, I will update this project to reflect those stats.
+
 
 ### Project Design
-There is only one main page of the project that will be displayed which will show all the information described bellow.
+There is only one main page of the project that will be displayed which will show all the information described below.
 
 #### Header
 - The header of the website will consist of a navbar that will remain sticky to the top of the screen after the user has scrolled down the page.
